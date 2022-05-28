@@ -17,4 +17,6 @@
             android:icon="@android:drawable/ic_menu_today"
             android:title="@string/menu_calendar" />
     </group>
+
+    
 </menu>

@@ -28,7 +28,7 @@ import com.diplom.mypill2.ui.login.data.LoginDataSource;
 public class LoginFragment2 extends Fragment {
 
     private LoginViewModel loginViewModel;
-private FragmentLoginBinding binding;
+    private FragmentLoginBinding binding;
 
     @Nullable
     @Override

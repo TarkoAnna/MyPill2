@@ -16,13 +16,9 @@
             android:id="@+id/nav_calendar"
             android:icon="@android:drawable/ic_menu_today"
             android:title="@string/menu_calendar" />
-
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="@string/menu_login" />
     </group>
-
-    <item
-        android:id="@+id/nav_login"
-        android:icon="@android:drawable/ic_menu_myplaces"
-        android:title="@string/menu_login" />
-
-    
 </menu>

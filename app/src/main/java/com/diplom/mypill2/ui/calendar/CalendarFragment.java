@@ -1,12 +1,14 @@
 package com.diplom.mypill2.ui.calendar;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.diplom.mypill2.R;
 import com.diplom.mypill2.databinding.FragmentCalendarBinding;
 
+import java.text.DateFormat;
 import java.util.Calendar;
 
 public class CalendarFragment extends Fragment {
@@ -21,6 +24,11 @@ public class CalendarFragment extends Fragment {
     private @NonNull FragmentCalendarBinding binding;
     private TextView textViewFirstDate;
     private TextView textViewSecondDate;
+    private TextView textViewFirstTime;
+    private TextView textViewSecondTime;
+
+    private int tHour;
+    private int tMinute;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCalendarBinding.inflate(inflater, container, false);
@@ -28,6 +36,8 @@ public class CalendarFragment extends Fragment {
 
         textViewFirstDate = view.findViewById(R.id.text_view_first_date);
         textViewSecondDate = view.findViewById(R.id.text_view_second_date);
+        textViewFirstTime = view.findViewById(R.id.text_view_first_time);
+        textViewSecondTime = view.findViewById(R.id.text_view_second_time);
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
@@ -37,14 +47,14 @@ public class CalendarFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
-                    new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker view, int year, int month, int day) {
-                            month += 1;
-                            String date = day + "/" + month + "/" + year;
-                            textViewFirstDate.setText(date);
-                        }
-                    }, year, month, day);
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int day) {
+                                month += 1;
+                                String date = day + "/" + month + "/" + year;
+                                textViewFirstDate.setText(date);
+                            }
+                        }, year, month, day);
                 datePickerDialog.show();
             }
         });
@@ -62,6 +72,44 @@ public class CalendarFragment extends Fragment {
                             }
                         }, year, month, day);
                 datePickerDialog.show();
+            }
+        });
+
+        textViewFirstTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                tHour = hourOfDay;
+                                tMinute = minute;
+                                Calendar calendar1 = Calendar.getInstance();
+                                calendar1.set(0, 0, 0, tHour, tMinute);
+                                textViewFirstTime.setText(DateFormat.getInstance().format(calendar1));
+                            }
+                        }, 24, 0, true);
+                timePickerDialog.updateTime(tHour, tMinute);
+                timePickerDialog.show();
+            }
+        });
+
+        textViewSecondTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                tHour = hourOfDay;
+                                tMinute = minute;
+                                Calendar calendar1 = Calendar.getInstance();
+                                calendar1.set(0, 0, 0, tHour, tMinute);
+                                textViewSecondTime.setText(DateFormat.getInstance().format(calendar1));
+                            }
+                        }, 24, 0, true);
+                timePickerDialog.updateTime(tHour, tMinute);
+                timePickerDialog.show();
             }
         });
 

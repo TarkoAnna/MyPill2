@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -27,10 +29,17 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    protected static FragmentManager fragmentManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        fragmentManager = getSupportFragmentManager();
+
+        loadFragment(new EnterFragment());
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -66,6 +75,14 @@ public class MainActivity extends AppCompatActivity {
 
         binding.navView.getHeaderView(0).findViewById(R.id.imageView).setOnClickListener(listener);
         binding.navView.getHeaderView(0).setBackgroundResource(R.mipmap.ic_launcher);
+    }
+
+    public static void loadFragment(Fragment fragment) {
+        fragmentManager
+                .beginTransaction()
+                .setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out)
+                .replace(R.id.frame_layout, fragment)
+                .addToBackStack(null).commit();
     }
 
     @Override

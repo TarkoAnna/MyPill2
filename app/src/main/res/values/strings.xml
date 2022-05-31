@@ -12,10 +12,11 @@
     <string name="Registration">Регистрация</string>
     <string name="MemorizeUser">Запомнить</string>
     <string name="Exit">Выход</string>
+    <string name="autologin">Запомнить</string>
+    <string name="enter">Войти</string>
+    <string name="email">email почта</string>
 
     <string name="menu_login">Вход или регистрация</string>
-
-
     <string name="menu_home">Главное меню</string>
     <string name="menu_settings">Настройки</string>
     <string name="menu_calendar">Календарь</string>

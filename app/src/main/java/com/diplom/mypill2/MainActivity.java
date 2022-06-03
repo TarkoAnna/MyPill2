@@ -1,19 +1,21 @@
 package com.diplom.mypill2;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
-import android.widget.CalendarView;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private TimeReceiver timeReceiver;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            timeReceiver = new TimeReceiver(getSystemService(NotificationManager.class));
+        }
+        registerBroadcastReceiver();
         binding.navView.getHeaderView(0).findViewById(R.id.imageView).setOnClickListener(listener);
         binding.navView.getHeaderView(0).setBackgroundResource(R.mipmap.ic_launcher);
     }
@@ -79,5 +87,21 @@ public class MainActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
+    }
+
+
+
+    public void registerBroadcastReceiver() {
+        this.registerReceiver(timeReceiver, new IntentFilter(
+                "android.intent.action.TIME_TICK"));
+        Toast.makeText(getApplicationContext(), "Приёмник включен",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    public void unregisterBroadcastReceiver(View view) {
+        this.unregisterReceiver(timeReceiver);
+
+        Toast.makeText(getApplicationContext(), "Приёмник выключён", Toast.LENGTH_SHORT)
+                .show();
     }
 }

@@ -1,9 +1,5 @@
 package com.diplom.mypill2;
 
-
-
-
-
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -31,6 +27,7 @@ public class AlarmActivity extends AppCompatActivity {
             ringtone.play();
         }
     }
+
     @Override
     protected  void  onDestroy() {
         if (ringtone != null && ringtone.isPlaying()){
@@ -39,6 +36,3 @@ public class AlarmActivity extends AppCompatActivity {
         super.onDestroy();
     }
 }
-
-
-

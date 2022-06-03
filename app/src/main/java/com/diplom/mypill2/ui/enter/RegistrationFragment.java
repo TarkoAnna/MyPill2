@@ -31,7 +31,7 @@ public class RegistrationFragment extends Fragment {
         editTextEmailRegistration = view.findViewById(R.id.edit_text_email_registration);
         editTextPasswordRegistration = view.findViewById(R.id.edit_text_password_registration);
         buttonRegistrationRegistration = view.findViewById(R.id.button_registration_registration);
-        UserJdbc userJdbc = new UserJdbc(getActivity().getBaseContext());
+        UserJdbc userJdbc = new UserJdbc(getActivity());
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -42,7 +42,7 @@ public class RegistrationFragment extends Fragment {
                 userJdbc.insert(email, password);
                 editTextEmailRegistration.setText("");
                 editTextPasswordRegistration.setText("");
-                Toast.makeText(getActivity().getBaseContext(), "reg done", Toast.LENGTH_SHORT);
+                Toast.makeText(getActivity(), "reg done", Toast.LENGTH_SHORT);
             }
         };
 

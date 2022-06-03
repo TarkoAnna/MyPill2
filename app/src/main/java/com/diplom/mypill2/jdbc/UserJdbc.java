@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.diplom.mypill2.entity.User;
 
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -14,14 +13,13 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 public class UserJdbc {
-    private final String host = "ec2-34-246-227-219.eu-west-1.compute.amazonaws.com";
-    private final String database = "ddo5lif7cdem45";
+    private final String host = "ec2-63-34-180-86.eu-west-1.compute.amazonaws.com";
+    private final String database = "d8uq0n6ep8p3ri";
     private final int port = 5432;
-    private final String userName = "wbpbfrjccytxyh";
-    private final String password = "ddafb44cb05d81f3d58e530997725a62f60a91ed1a90fe12c45c5da19d42a261";
+    private final String userName = "jlnfqmuxvbmskg";
+    private final String password = "2395e3c7ccfd9f9708600e0bdd85a442061d067d2fe156a7c79f810c1ad996ef";
     private String url = "jdbc:postgresql://%s:%d/%s";
 
     private JdbcTemplate jdbcTemplate;
@@ -30,84 +28,44 @@ public class UserJdbc {
         this.url = String.format(this.url, this.host, this.port, this.database);
         ConnectThread connectThread = new ConnectThread();
         connectThread.start();
-        try {
-            connectThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public List<User> select() {
         SelectThread selectThread = new SelectThread();
         selectThread.start();
-        try {
-            selectThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return selectThread.getUsers();
     }
 
     public User search(Integer id) {
         SearchThread searchThread = new SearchThread(id);
         searchThread.start();
-        try {
-            searchThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return searchThread.getUser();
     }
 
     public User search(String login, String password) {
         SearchThread searchThread = new SearchThread(login, password);
         searchThread.start();
-        try {
-            searchThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return searchThread.getUser();
     }
 
     public void insert(User user) {
         InsertThread insertThread = new InsertThread(user);
         insertThread.start();
-        try {
-            insertThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public void insert(String email, String password) {
         InsertThread insertThread = new InsertThread(email, password);
         insertThread.start();
-        try {
-            insertThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public void update(Integer id, User user) {
         UpdateThread updateThread = new UpdateThread(id, user);
         updateThread.start();
-        try {
-            updateThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public void delete(Integer id) {
         DeleteThread deleteThread = new DeleteThread(id);
         deleteThread.start();
-        try {
-            deleteThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
     //--CLASS INSERT THREAD -------------------------------------------------------------------------------------
     class InsertThread extends Thread{

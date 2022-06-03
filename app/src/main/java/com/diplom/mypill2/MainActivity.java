@@ -87,6 +87,13 @@ public class MainActivity extends AppCompatActivity {
     protected static FragmentManager fragmentManager;
 
 
+
+    Button setAlarm;
+
+
+
+
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +101,69 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+
+
+
+        setAlarm = findViewById(R.id.alarm_button);
+
+
+
+        setAlarm.setOnClickListener(v -> {
+
+            MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
+
+                    .setTimeFormat(TimeFormat.CLOCK_24H)
+
+                    .setHour(12)
+
+                    .setMinute(0)
+
+                    .setTitleText("Выберите время для будильника")
+
+                    .build();
+
+
+
+            materialTimePicker.addOnPositiveButtonClickListener(view -> {
+
+                Calendar calendar = Calendar.getInstance();
+
+                calendar.set(Calendar.SECOND, 0);
+
+                calendar.set(Calendar.MILLISECOND, 0);
+
+                calendar.set(Calendar.MINUTE, materialTimePicker.getMinute());
+
+                calendar.set(Calendar.HOUR_OF_DAY, materialTimePicker.getHour());
+
+
+
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+
+
+                AlarmManager.AlarmClockInfo alarmClockInfo = new AlarmManager.AlarmClockInfo(calendar.getTimeInMillis(), getAlarmInfoPendingIntent());
+
+
+
+                alarmManager.setAlarmClock(alarmClockInfo, getAlarmActionPendingIntent());
+
+                Toast.makeText(this, "Будильник установлен на " + sdf.format(calendar.getTime()), Toast.LENGTH_SHORT).show();
+
+
+
+            });
+
+
+
+            materialTimePicker.show(getSupportFragmentManager(), "tag_picker");
+
+        });
+
 
 
         fragmentManager = getSupportFragmentManager();
@@ -172,7 +242,29 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        public static void loadFragment(Fragment fragment) {
+    private PendingIntent getAlarmInfoPendingIntent(){
+
+        Intent alarmInfoIntent = new Intent(this, MainActivity.class);
+
+        alarmInfoIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        return PendingIntent.getActivity(this, 0, alarmInfoIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+    }
+
+    private PendingIntent getAlarmActionPendingIntent (){
+
+        Intent intent = new Intent(this, AlarmActivity.class);
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        return PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+    }
+
+
+
+    public static void loadFragment(Fragment fragment) {
 
         fragmentManager
 
@@ -211,4 +303,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
+
+
 

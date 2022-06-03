@@ -34,4 +34,5 @@
         android:name="com.diplom.mypill2.ui.calendar.CalendarFragment"
         android:label="@string/menu_calendar"
         tools:layout="@layout/fragment_calendar" />
+
 </navigation>

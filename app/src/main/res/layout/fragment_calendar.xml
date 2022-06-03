@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/a2c7d2c40a337061af0079a525ed69bf"
+    android:background="@drawable/background_light"
     android:orientation="vertical"
     tools:context=".ui.calendar.CalendarFragment">
 

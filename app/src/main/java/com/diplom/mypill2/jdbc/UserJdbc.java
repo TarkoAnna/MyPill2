@@ -28,6 +28,11 @@ public class UserJdbc {
         this.url = String.format(this.url, this.host, this.port, this.database);
         ConnectThread connectThread = new ConnectThread();
         connectThread.start();
+        try {
+            connectThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<User> select() {
@@ -51,11 +56,21 @@ public class UserJdbc {
     public void insert(User user) {
         InsertThread insertThread = new InsertThread(user);
         insertThread.start();
+        try {
+            insertThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void insert(String email, String password) {
         InsertThread insertThread = new InsertThread(email, password);
         insertThread.start();
+        try {
+            insertThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void update(Integer id, User user) {

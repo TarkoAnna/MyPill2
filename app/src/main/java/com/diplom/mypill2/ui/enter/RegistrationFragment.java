@@ -17,6 +17,7 @@ public class RegistrationFragment extends Fragment {
     private EditText editTextEmailRegistration;
     private EditText editTextPasswordRegistration;
     private Button buttonRegistrationRegistration;
+    private UserJdbc userJdbc;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class RegistrationFragment extends Fragment {
         editTextEmailRegistration = view.findViewById(R.id.edit_text_email_registration);
         editTextPasswordRegistration = view.findViewById(R.id.edit_text_password_registration);
         buttonRegistrationRegistration = view.findViewById(R.id.button_registration_registration);
-        UserJdbc userJdbc = new UserJdbc(getActivity());
+        userJdbc = new UserJdbc(getActivity().getBaseContext());
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override

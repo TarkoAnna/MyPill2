@@ -1,4 +1,4 @@
-package com.diplom.mypill2;
+package com.diplom.mypill2.ui.enter;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,9 +10,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
-import com.diplom.mypill2.jdbc.UserJdbc;
+import com.diplom.mypill2.R;
 import com.diplom.mypill2.entity.User;
+import com.diplom.mypill2.jdbc.UserJdbc;
 
 public class EnterFragment extends Fragment {
 
@@ -22,6 +24,7 @@ public class EnterFragment extends Fragment {
     private Button buttonEnterEnter;
     private CheckBox checkboxAutoLogin;
     private UserJdbc userJdbc;
+    private FragmentManager fragmentManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class EnterFragment extends Fragment {
         buttonEnterEnter = view.findViewById(R.id.button_enter_enter);
         checkboxAutoLogin = view.findViewById(R.id.check_box_auto_login);
         userJdbc = new UserJdbc(getActivity().getBaseContext());
+        fragmentManager = getActivity().getSupportFragmentManager();
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -57,7 +61,7 @@ public class EnterFragment extends Fragment {
                                     Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.button_registration_enter:
-                        MainActivity.loadFragment(new RegistrationFragment());
+                        loadFragment(new RegistrationFragment());
                         break;
                 }
             }
@@ -67,5 +71,13 @@ public class EnterFragment extends Fragment {
         buttonEnterEnter.setOnClickListener(listener);
 
         return view;
+    }
+
+    public void loadFragment(Fragment fragment) {
+        fragmentManager
+                .beginTransaction()
+                .setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out)
+                .replace(R.id.nav_host_fragment_content_main, fragment)
+                .addToBackStack(null).commit();
     }
 }

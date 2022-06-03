@@ -1,4 +1,4 @@
-package com.diplom.mypill2;
+package com.diplom.mypill2.ui.enter;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,10 +10,10 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.diplom.mypill2.R;
 import com.diplom.mypill2.jdbc.UserJdbc;
 
 public class RegistrationFragment extends Fragment {
-
     private EditText editTextEmailRegistration;
     private EditText editTextPasswordRegistration;
     private Button buttonRegistrationRegistration;

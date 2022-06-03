@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/a2c7d2c40a337061af0079a525ed69bf"
     android:orientation="vertical"
     tools:context=".AlarmActivity">
 
@@ -13,6 +14,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="Будильник!!!!"
+        android:textColor="@color/purple_500"
         android:textSize="48sp"/>
 
 

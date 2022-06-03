@@ -2,28 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:background="@drawable/a2c7d2c40a337061af0079a525ed69bf"
+    android:gravity="center"
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/edit_text_email_registration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:gravity="center"
-        android:hint="@string/email"/>
+        android:hint="@string/email"
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/edit_text_password_registration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:password="true"
-        android:hint="@string/Password"/>
+        android:hint="@string/Password"
+        android:minHeight="48dp"
+        android:password="true" />
 
     <Button
         android:id="@+id/button_registration_registration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Registration"/>
+        android:text="@string/Registration" />
 
 </LinearLayout>

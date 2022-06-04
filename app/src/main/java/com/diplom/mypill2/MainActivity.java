@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import java.util.Calendar;
+import android.content.Intent;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,7 +62,17 @@ public class MainActivity extends AppCompatActivity {
         binding.navView.getHeaderView(0).findViewById(R.id.imageView).setOnClickListener(listener);
         binding.navView.getHeaderView(0).setBackgroundColor(getResources().getColor(R.color.teal_200));
     }
-
+    public void AddCalendarEvent(View view) {
+        Calendar calendarEvent = Calendar.getInstance();
+        Intent i = new Intent(Intent.ACTION_EDIT);
+        i.setType("vnd.android.cursor.item/event");
+        i.putExtra("beginTime", calendarEvent.getTimeInMillis());
+        i.putExtra("allDay", true);
+        i.putExtra("rule", "FREQ=YEARLY");
+        i.putExtra("endTime", calendarEvent.getTimeInMillis() + 60 * 60 * 1000);
+        i.putExtra("title", "Calendar Event");
+        startActivity(i);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
